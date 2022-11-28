@@ -1,0 +1,78 @@
+---
+title: "20221128_dataImportClean"
+author: "Melanie Smith"
+date: "28/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE,
+    cache = FALSE,
+    fig.align = "center"
+)
+```
+
+# Load required libraries
+
+```{r echo=FALSE, loadLibraries}
+
+# Data munging
+library(plyr)
+library(dplyr)
+library(magrittr)
+library(tidyverse)
+library(reshape2)
+library(stringr)
+
+# Data import/export:
+library(readxl)
+
+# Data visualisation:
+library(plotly)
+library(ggplot2)
+library(ggbeeswarm)
+library(ggrepel)
+library(RColorBrewer)
+library(pheatmap)
+library(ggpubr)
+library(Glimma)
+library(ComplexHeatmap)
+
+# Set ggplot theme
+theme_set(theme_bw() +
+            theme(text = element_text(size=18)) +
+  theme(axis.text.x = element_text(colour = "black",
+                                   face = "bold"),
+        axis.text.y = element_text(colour = "black",
+                                   face = "bold")) +
+  theme(axis.title.x = element_text(colour = "black",
+                                   face = "bold"),
+        axis.title.y = element_text(colour = "black",
+                                   face = "bold")))
+
+# set alpha for later plots
+plotAlpha <- 0.1
+
+# Clustering tools:
+library(dendextend)
+library(PCAtools)
+
+# Bioconductor packages:
+library(AnnotationHub)
+library(edgeR)
+library(pander)
+library(clusterProfiler)
+library(org.Hs.eg.db)
+
+# Other packages:
+library(here)
+
+## UDFs
+# function to negate magrittr::%in%
+`%notin%` <- Negate(`%in%`)
+# function (x) to count the number of non-zero records in each column (ie per sample)
+nonzero <- function(x) sum(x != 0)
+```
